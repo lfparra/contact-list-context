@@ -1,10 +1,12 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Context } from "../store/appContext";
 import PropTypes from "prop-types";
 
-export const AddContact = () => {
+export const AddContact = props => {
+	/* 	let location = useLocation(); */
 	const { store, actions } = useContext(Context);
+
 	return (
 		<div className="container">
 			<div>
@@ -12,8 +14,8 @@ export const AddContact = () => {
 				<form
 					onSubmit={e => {
 						e.preventDefault();
-						if (props.location.pathname === "/add") {
-							actions.addContact();
+						if (location.pathname === "/add") {
+							actions.addContact(props.history);
 						} else {
 							actions.editContact();
 						}
@@ -62,9 +64,7 @@ export const AddContact = () => {
 							onChange={actions.handleChange}
 						/>
 					</div>
-					<button type="button" className="btn btn-primary form-control">
-						save
-					</button>
+					<button className="btn btn-primary form-control">save</button>
 					<Link className="mt-3 w-100 text-center" to="/">
 						or get back to contacts
 					</Link>

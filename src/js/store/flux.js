@@ -33,7 +33,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.then(data => setStore({ contacts: data }))
 					.catch(error => setStore({ error }));
 			},
-			addContact: () => {
+			addContact: history => {
 				const store = getStore();
 				fetch(`${store.url}`, {
 					method: "POST",
@@ -43,7 +43,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 					}
 				})
 					.then(resp => resp.json())
-					.then(data => getActions().getContacts())
+					.then(data => {
+						/* getActions().getContacts(); */
+						console.log(data);
+						history.push("/");
+					})
 					.catch(error => setStore({ error }));
 			},
 			editContact: () => {
